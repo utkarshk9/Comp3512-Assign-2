@@ -3,16 +3,65 @@
 <head>
    <meta charset="utf-8">
    <title>Assignment-2</title>
-   
+
+   <title>Search/Browse Songs</title>
+    <!-- CSS -->
+    <script src="data/Artist.json" ></script>
+    <script src="data/Genre.json"></script>
+    <script src="data/Sample-songs.json"></script>
+    <script src="js/Assignment2.js"></script>
+
 </head>
 <body>
-   
+
 <header>
-  <h1>Comp3512- Assignment 2</h1>
+<h1>Comp3512- Assignment 2</h1>
 </header>
 
-<h2>By: Utkarsh Kapoor and Adam Kovacs.</h2>
+<h2>By: Utkarsh Kapoor, Adam Kovacs and Victor Alli</h2>
 
+<main>
+        <section id="search">
+            <div>
+                <label for="titleRadio">Title:</label>
+                <input type="radio" id="title-radio" name="titleradio">
+                <input type="textfield" id="title-Text">
+            </div>
 
+            <div>
+                <label for="genreRadio">Genre:</label>
+                <input type="radio" id="genre-radio" name="genreradio">
+                <select id="genre-select">
+                    <option disabled selected>Select a Genre</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="artistRadio">Artist:</label>
+                <input type="radio" id="artist-Radio" name="artistradio">
+                <select id="artist-select">
+                    <option disabled selected>Select an Artist</option>
+                </select>
+            </div>
+
+            <button id="filter-button">Filter</button>
+        </section>
+
+        <section id="song-table"> 
+            <p>Song Table</p>
+            <table>
+                <thead>
+                    <th><span>Title</span><span class="table"></span></th>
+                    <th><span>Artist</span><span class="table"></span></th>
+                    <th><span>Year</span><span class="table"></span></th>
+                    <th><span>Genre</span><span class="table"></span></th>
+                    <th><span>Popularity</span><span class="table"></span></th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </section>
+      </main>
 </body>
 </html>
