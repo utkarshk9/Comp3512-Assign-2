@@ -43,68 +43,73 @@ function populateSelect(selector, list){
     });
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+   var tableSpans = document.querySelectorAll('.tableheader');
+   var sortOrder = 1; // 1 for ascending, -1 for descending
 
-function SortColumnListener() {
-   const headers = document.querySelectorAll("#song-table table th");
+   // Add a click event listener to each span
+   tableSpans.forEach(function (span) {
+       span.addEventListener('click', function () {
+           // Get the parent th element
+           var th = span.parentElement;
 
-   headers.forEach((header, index) => {
-       header.addEventListener("click", () => {
-           sortColumn(index);
+           // Get the index of the th element within its parent
+           var columnIndex = Array.from(th.parentElement.children).indexOf(th);
+
+           // Get all rows in the tbody
+           var rows = document.querySelectorAll('#song-table tbody tr');
+
+           // Convert NodeList to array for easier sorting
+           var rowsArray = Array.from(rows);
+
+           // Sort the rows based on the content of the clicked column
+           rowsArray.sort(function (a, b) {
+               var firstValue = a.children[columnIndex].innerText.trim().toLowerCase();
+               var secondValue = b.children[columnIndex].innerText.trim().toLowerCase();
+
+               if (firstValue < secondValue) return -sortOrder;
+               if (firstValue > secondValue) return sortOrder;
+
+               return 0;
+           });
+
+           // Clear the rows from the tbody
+           var tbody = document.querySelector('#song-table tbody');
+           tbody.innerHTML = '';
+
+           // Append the sorted rows to the tbody
+           rowsArray.forEach(function (row) {
+               tbody.appendChild(row);
+           });
+
+           // Reset arrow icons in all headers
+           tableSpans.forEach(function (otherSpan) {
+               if (otherSpan !== span) {
+                   otherSpan.innerHTML = otherSpan.innerText;
+               }
+           });
+
+           // Toggle the sortOrder for the next click
+           sortOrder *= -1;
+
+           // Get the current text of the span
+           var currentText = span.innerText;
+
+           // Check if the arrow is '↑' or '↓'
+           if (currentText.includes('↑')) {
+               // Replace current arrow with '↓'
+               span.innerHTML = currentText.replace('↑', '↓');
+           } 
+           
+           else if (currentText.includes('↓')) {
+               // Replace current arrow with '↑'
+               span.innerHTML = currentText.replace('↓', '↑');
+           } 
+           
+           else {
+               // Add arrow icon for the first time
+               span.innerHTML = currentText + (sortOrder === 1 ? ' ↑' : ' ↓');
+           }
        });
    });
-}
-function sorter(e) {
-   const columnHeaders = ["Title", "Artist", "Year", "Genre", "Popularity"];
-   const columnIndex = columnHeaders.indexOf(e.target.innerText);
-
-   if (columnIndex !== -1) {
-      tableSorter(columnIndex);
-   }
-}
-
-function clearSort() {
-   const spans = document.querySelectorAll(".tableSpan");
-   for (const span of spans) {
-      span.innerText = "";
-   }
-}
-
-function setSort(column, direction) {
-   const headerSpan = document.querySelector(`#song-list table thead tr th:nth-child(${column + 1}) .tableSpan`);
-   headerSpan.innerText = direction === "ascend" ? "^" : "⌄";
-}
-
-function tableSorter(column) {
-   clearSort();
-
-   let switchMade = true;
-   let direction = "ascend";
-
-   setSorti(column, direction);
-
-   while (switchMade) {
-      const rows = document.querySelectorAll("#song-list table tbody tr");
-      let count = 0;
-
-      for (let i = 0; i < rows.length - 1; i++) {
-         const compare1 = rows[i].children[column];
-         const compare2 = rows[i + 1].children[column];
-
-         switchMade = false;
-
-         if ((compare1.innerText > compare2.innerText && direction === "ascend") ||
-            (compare1.innerText < compare2.innerText && direction === "descend")) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switchMade = true;
-            count++;
-            break;
-         }
-      }
-
-      if (count === 0 && direction === "ascend") {
-         direction = "descend";
-         setSort(column, direction);
-         switchMade = true;
-      }
-   }
-}
+});
