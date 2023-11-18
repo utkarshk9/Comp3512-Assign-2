@@ -43,7 +43,6 @@ function populateSelect(selector, list){
     });
 }
 
-
 // Deals with the sorting mechanics and fuctionality
 document.addEventListener('DOMContentLoaded', function () {
    var tableSpans = document.querySelectorAll('.tableheader');

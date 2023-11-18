@@ -4,33 +4,33 @@
    <meta charset="utf-8">
    <title>Assignment-2</title>
 
-   <title>Search/Browse Songs</title>
-    <!-- CSS -->
+    <title>Search/Browse Songs</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
     <script src="data/Artist.json" ></script>
     <script src="data/Genre.json"></script>
     <script src="data/Sample-songs.json"></script>
-    <script src="js/Assignment2.js"></script>
+    <script src="js/Assignment2.js" defer></script>
 
 </head>
 <body>
 
 <header>
-<h1>Comp3512- Assignment 2</h1>
+<h1>Comp3512 - Assignment 2</h1>
+<br>
+<h2>Utkarsh Kapoor, Adam Kovacs and Victor Alli</h2>
 </header>
-
-<h2>By: Utkarsh Kapoor, Adam Kovacs and Victor Alli</h2>
 
 <main>
         <section id="search">
             <div>
                 <label for="titleRadio">Title:</label>
-                <input type="radio" id="title-radio" name="titleradio">
+                <input type="radio" id="title-Radio" name="titleradio">
                 <input type="textfield" id="title-Text">
             </div>
 
             <div>
                 <label for="genreRadio">Genre:</label>
-                <input type="radio" id="genre-radio" name="genreradio">
+                <input type="radio" id="genre-Radio" name="genreradio">
                 <select id="genre-select">
                     <option disabled selected>Select a Genre</option>
                 </select>
@@ -48,7 +48,7 @@
         </section>
 
         <section id="song-table"> 
-            <p>Song Table</p>
+            <h2>Song Table</h2>
             <table>
                 <thead>
                     <th><span class="tableheader">Title</span></th>
