@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function populateSongsTable(){
-    const table = document.querySelector("#song-table table tbody");//.addEventListener('click', sorter);
+    const table = document.querySelector("#song-table table tbody");
     
     songlist.forEach(song => {
         const row = document.createElement("tr");
