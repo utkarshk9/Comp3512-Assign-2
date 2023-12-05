@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const resetButton = document.getElementById("reset-button");
     const tableSpans = document.querySelectorAll('.tableheader');
     let sortOrder = 1; // 1 for ascending, -1 for descending
-    let originalData; // Store the original data to reset the table after filtering
+    let originalData; 
     
 
     // Check if song data is already in local storage
@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Function to populate the song table
-    function populateSongTable(data) {
+    function populateSongTable(songData) {
         songTableBody.innerHTML = "";
-        data.forEach(song => {
+        songData.forEach(song => {
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td class="song-title" data-song-id="${song.song_id}">${song.title}</td>
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const songTitles = document.querySelectorAll(".song-title");
         songTitles.forEach(title => {
             title.addEventListener("click", () => {
-                // Implement logic to change view to Single Song View
+                
                 console.log("Navigate to Single Song View with song ID:", title.dataset.songId);
             });
         });
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add event listener for filter button
     filterButton.addEventListener("click", () => {
-        // Implement logic to filter songs based on user input
+        
         const titleFilter = document.getElementById("title-Radio").checked;
         const artistFilter = document.getElementById("artist-Radio").checked;
         const genreFilter = document.getElementById("genre-Radio").checked;
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const genreSelect = document.getElementById("genre-select");
         const selectedGenre = genreSelect.options[genreSelect.selectedIndex].text;
 
-         // Filter the data based on user input
+         
          songData = originalData.filter(song => {
             return (!titleFilter || song.title.toLowerCase().includes(searchText)) &&
                    (!artistFilter || song.artist.name === selectedArtist) &&
@@ -107,22 +107,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Deals with the sorting mechanics and fuctionality
-    // Add a click event listener to each span
+   
     tableSpans.forEach(function (span) {
         span.addEventListener('click', function () {
-           // Get the parent th element
+           
            var th = span.parentElement;
 
-           // Get the index of the th element within its parent
+     
            var columnIndex = Array.from(th.parentElement.children).indexOf(th);
 
-           // Get all rows in the tbody
            var rows = document.querySelectorAll('#song-table tbody tr');
 
-           // Convert NodeList to array for easier sorting
+          
            var rowsArray = Array.from(rows);
 
-           // Sort the rows based on the content of the clicked column
+           
            rowsArray.sort(function (a, b) {
                var firstValue = a.children[columnIndex].innerText.trim().toLowerCase();
                var secondValue = b.children[columnIndex].innerText.trim().toLowerCase();
@@ -133,26 +132,26 @@ document.addEventListener("DOMContentLoaded", function () {
                return 0;
            });
 
-           // Clear the rows from the tbody
+       
            var tbody = document.querySelector('#song-table tbody');
            tbody.innerHTML = '';
 
-           // Append the sorted rows to the tbody
+           
            rowsArray.forEach(function (row) {
                tbody.appendChild(row);
            });
 
-           // Reset arrow icons in all headers
+           
            tableSpans.forEach(function (otherSpan) {
                if (otherSpan !== span) {
                    otherSpan.innerHTML = otherSpan.innerText;
                }
            });
 
-           // Toggle the sortOrder for the next click
+           
            sortOrder *= -1;
 
-           // Get the current text of the span
+          
            var currentText = span.innerText;
 
            // Check if the arrow is '↑' or '↓'
@@ -172,4 +171,8 @@ document.addEventListener("DOMContentLoaded", function () {
            }
        });
    });
+   // song radar chart and song detail function.
+   
+
+
 });
