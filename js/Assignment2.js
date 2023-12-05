@@ -171,8 +171,67 @@ document.addEventListener("DOMContentLoaded", function () {
            }
        });
    });
-   // song radar chart and song detail function.
-   
+//-----------------------------------------------------Single View Page----------------------------------------------------
+   function singleView(song) {
+    const hideElement = (element) => element.style.display = 'none';
+    const showElement = (element) => element.style.display = 'block';
+    
+    const songTable = document.querySelector('#song-table');
+    hideElement(songTable);
 
+    const singleViewContainer = document.querySelector('#singleSongViewContainer');
+    showElement(singleViewContainer);
+    
+    displaySongDetails(song);
+
+
+    //displayRadarChart(song);
+
+  
+    const backButton = document.getElementById("closeViewButton")
+    backButton.addEventListener('click', () => {
+        hideElement(singleViewContainer);
+        showElement(songTable);
+    });
+
+   
+    singleViewContainer.appendChild(backButton);
+}
+
+// song radar chart and song detail function.
+const titles = document.querySelectorAll(".song-title");
+
+for (const title of titles) {
+    title.addEventListener("click", () => {
+        const songId1 = title.getAttribute("data-song-id");
+        const selectedSong = songData.find((song) => song.song_id == songId1);
+        singleView(selectedSong);
+    });
+}
+
+function displaySongDetails(song) {
+    const details = document.querySelector('#songDetailsContainer'); 
+
+    const mins = Math.floor(song.details.duration / 60);
+    const secs = song.details.duration % 60;
+    const durationString = `${mins} mins and ${secs} secs`;
+
+    details.innerHTML = `
+        <h2>${song.title}</h2>
+        <p>Artist: ${song.artist.name}</p>
+        <p>Genre: ${song.genre.name}</p>
+        <p>Year: ${song.year}</p>
+        <p>Duration: ${durationString}</p>
+        <p>BPM: ${song.details.bpm}</p>
+        <p>Energy: ${song.analytics.energy}</p>
+        <p>Danceability: ${song.analytics.danceability}</p>
+        <p>Valence: ${song.analytics.valence}</p>
+        <p>Speechiness: ${song.analytics.speechiness}</p>
+        <p>Liveness: ${song.analytics.liveness}</p>
+        <p>Popularity: ${song.details.popularity}</p>
+    `;
+}
+function displayRadarChart(song) {
+}
 
 });
