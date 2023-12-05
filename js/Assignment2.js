@@ -1,56 +1,115 @@
-/* url of song api --- https versions hopefully a little later this semester */	
 const api = "http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
 
-const songlist = JSON.parse(songs);
-const genrelist = JSON.parse(genres);
-const artistlist = JSON.parse(artists);
 
-document.addEventListener("DOMContentLoaded", () => {
-    populateSongsTable();
-    populateSelect("#artist-select", artistlist);
-    populateSelect("#genre-select", genrelist);
-});
-
-function populateSongsTable(){
-    const table = document.querySelector("#song-table table tbody");
+document.addEventListener("DOMContentLoaded", function () {
+    const songTableBody = document.querySelector("#song-table tbody");
+    const filterButton = document.getElementById("filter-button");
+    const resetButton = document.getElementById("reset-button");
+    const tableSpans = document.querySelectorAll('.tableheader');
+    let sortOrder = 1; // 1 for ascending, -1 for descending
+    let originalData; // Store the original data to reset the table after filtering
     
-    songlist.forEach(song => {
-        const row = document.createElement("tr");
-        table.appendChild(row);
 
-        // Add song details directly
-        addCell(row, song.title);
-        addCell(row, song.artist.name);
-        addCell(row, song.year);
-        addCell(row, song.genre.name);
-        addCell(row, song.details.popularity);
+    // Check if song data is already in local storage
+    let songData = JSON.parse(localStorage.getItem("songData"));
+
+    if (!songData) {
+        // If not in local storage, fetch from API and store in local storage
+        fetch(api)
+            .then(response => response.json())
+            .then(data => {
+                songData = data;
+                localStorage.setItem("songData", JSON.stringify(songData));
+                originalData = [...songData];
+                populateSongTable(songData);
+                populateSelect("#artist-select", data.map(song => song.artist));
+                populateSelect("#genre-select", data.map(song => song.genre));
+            })
+            .catch(error => console.error("Error fetching data:", error));
+    } else {
+        // If data is in local storage, use it directly
+        originalData = [...songData];
+        populateSongTable(songData);
+        populateSelect("#artist-select", songData.map(song => song.artist));
+        populateSelect("#genre-select", songData.map(song => song.genre));
+    }
+
+    // Function to populate the song table
+    function populateSongTable(data) {
+        songTableBody.innerHTML = "";
+        data.forEach(song => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td class="song-title" data-song-id="${song.song_id}">${song.title}</td>
+                <td>${song.artist.name}</td>
+                <td>${song.year}</td>
+                <td>${song.genre.name}</td>
+                <td>${song.details.popularity}</td>
+            `;
+            songTableBody.appendChild(row);
+        });
+
+        // Add event listener for song title clicks to navigate to Single Song View
+        const songTitles = document.querySelectorAll(".song-title");
+        songTitles.forEach(title => {
+            title.addEventListener("click", () => {
+                // Implement logic to change view to Single Song View
+                console.log("Navigate to Single Song View with song ID:", title.dataset.songId);
+            });
+        });
+    }
+
+    // Add event listener for filter button
+    filterButton.addEventListener("click", () => {
+        // Implement logic to filter songs based on user input
+        const titleFilter = document.getElementById("title-Radio").checked;
+        const artistFilter = document.getElementById("artist-Radio").checked;
+        const genreFilter = document.getElementById("genre-Radio").checked;
+        const searchText = document.getElementById("title-Text").value.toLowerCase();
+        const artistSelect = document.getElementById("artist-select");
+        const selectedArtist = artistSelect.options[artistSelect.selectedIndex].text;
+        const genreSelect = document.getElementById("genre-select");
+        const selectedGenre = genreSelect.options[genreSelect.selectedIndex].text;
+
+         // Filter the data based on user input
+         songData = originalData.filter(song => {
+            return (!titleFilter || song.title.toLowerCase().includes(searchText)) &&
+                   (!artistFilter || song.artist.name === selectedArtist) &&
+                   (!genreFilter || song.genre.name === selectedGenre);
+        });
+
+        // Repopulate the table with filtered data
+        populateSongTable(songData);
     });
-}
 
-function addCell(row, data){
-    const cell = document.createElement("td");
-    cell.textContent = data;
-    row.appendChild(cell);
-}
+    // Add event listener for reset button
+    resetButton.addEventListener("click", () => {
+        // Reset the data to the original state
+        songData = originalData;
 
-function populateSelect(selector, list){
-    const select = document.querySelector(selector);
-    
-    list.forEach(item => {
-        const option = document.createElement("option");
-        option.textContent = item.name;
-        select.appendChild(option);
+        // Repopulate the table with original data
+        populateSongTable(songData);
     });
-}
 
-// Deals with the sorting mechanics and fuctionality
-document.addEventListener('DOMContentLoaded', function () {
-   var tableSpans = document.querySelectorAll('.tableheader');
-   var sortOrder = 1; // 1 for ascending, -1 for descending
 
-   // Add a click event listener to each span
-   tableSpans.forEach(function (span) {
-       span.addEventListener('click', function () {
+    function populateSelect(selector, list){
+        const select = document.querySelector(selector);
+        const addedOptions = [];
+        
+        list.forEach(options => {
+           if (!addedOptions.includes(options.name)) {
+            const option = document.createElement("option");
+            option.textContent = options.name;
+            select.appendChild(option);
+            addedOptions.push(options.name);
+        }
+        });
+    }
+
+    // Deals with the sorting mechanics and fuctionality
+    // Add a click event listener to each span
+    tableSpans.forEach(function (span) {
+        span.addEventListener('click', function () {
            // Get the parent th element
            var th = span.parentElement;
 
