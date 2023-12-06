@@ -59,15 +59,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    input.addEventListener("click", () => {
-        if(!this.find('input:radio').prop('checked')) {
-            this.find('input:radio').prop('checked', true);
-        }
+    // div.addEventListener("click", () => {
+    //     if(!this.find('input:radio').prop('checked')) {
+    //         this.find('input:radio').prop('checked', true);
+    //     }
 
-        else {
-            this.find('input:radio').prop('checked', false);
-        }
-    });
+    //     else {
+    //         this.find('input:radio').prop('checked', false);
+    //     }
+    // });
 
     // Add event listener for filter button
     filterButton.addEventListener("click", () => {
