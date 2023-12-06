@@ -211,9 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
  }); 
 
- "song-title".style.textDecoration = 'underline';
  
-
  function displaySongDetails(song) {
     const details = document.querySelector('#songDetailsContainer'); 
 
