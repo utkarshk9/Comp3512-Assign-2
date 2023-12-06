@@ -80,6 +80,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Repopulate the table with filtered data
         populateSongTable(songData);
+    
+        
     });
 
     // Add event listener for reset button
@@ -89,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Repopulate the table with original data
         populateSongTable(songData);
+    
     });
 
 
@@ -171,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
            }
        });
    });
-//-----------------------------------------------------Single View Page----------------------------------------------------
+ //-----------------------------------------------------Single View Page----------------------------------------------------
    function singleView(song) {
     const hideElement = (element) => element.style.display = 'none';
     const showElement = (element) => element.style.display = 'block';
@@ -192,21 +195,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
    
-    singleViewContainer.appendChild(backButton);
-}
+    singleViewContainer.appendChild(backButton);}
 
-// song radar chart and song detail function.
-const titles = document.querySelectorAll(".song-title");
 
-for (const title of titles) {
+ // song radar chart and song detail function.
+ const titles = document.querySelectorAll(".song-title");
+
+ for (const title of titles) {
     title.addEventListener("click", () => {
         const songId1 = title.getAttribute("data-song-id");
         const selectedSong = songData.find((song) => song.song_id == songId1);
         singleView(selectedSong);
     });
-}
+    title.style.textDecoration = 'underline';
+ }
 
-function displaySongDetails(song) {
+ function displaySongDetails(song) {
     const details = document.querySelector('#songDetailsContainer'); 
 
     const mins = Math.floor(song.details.duration / 60);
@@ -227,12 +231,10 @@ function displaySongDetails(song) {
         <p>Liveness: ${song.analytics.liveness}</p>
         <p>Popularity: ${song.details.popularity}</p>
     `;
-}
+ }
 
-function displayRadarChart(song) {
+ function displayRadarChart(song) {
   const radarContainer = document.querySelector('#radarChartContainer');
-  
-  // Ensure the container is cleared before drawing
   radarContainer.innerHTML = '<canvas id="radarChart"></canvas>';
 
   const radarChartCanvas = document.getElementById('radarChart').getContext('2d');
@@ -242,7 +244,7 @@ function displayRadarChart(song) {
       labels: ['Energy', 'Danceability', 'Liveness', 'Valence', 'Acousticness', 'Speechiness'],
       datasets: [{
         label: 'Song Analytics',
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 4,
         data: [
@@ -265,6 +267,6 @@ function displayRadarChart(song) {
   });
 
 
-}
+ }
 
 });
