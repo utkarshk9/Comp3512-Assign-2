@@ -60,15 +60,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // div.addEventListener("click", () => {
-    //     if(!this.find('input:radio').prop('checked')) {
-    //         this.find('input:radio').prop('checked', true);
-    //     }
+    var radioButtons = document.querySelectorAll('input[name="radio"]');
 
-    //     else {
-    //         this.find('input:radio').prop('checked', false);
-    //     }
-    // });
+        // Attach click event listeners to each radio button
+        radioButtons.forEach(function(radioButton) {
+            radioButton.addEventListener('click', function() {
+                // Uncheck all other radio buttons in the group
+                radioButtons.forEach(function(otherRadioButton) {
+                    if (otherRadioButton !== radioButton) {
+                        otherRadioButton.checked = false;
+                    }
+                });
+            });
+        });
 
     // Add event listener for filter button
     filterButton.addEventListener("click", () => {
@@ -93,14 +97,41 @@ document.addEventListener("DOMContentLoaded", function () {
         populateSongTable(songData);        
     });
 
+    // // Add event listener for reset button
+    // resetButton.addEventListener("click", () => {
+    //     // Reset the data to the original state
+    //     songData = originalData;
+        
+    //     // Repopulate the table with original data
+    //     populateSongTable(songData);
+    
+    // });
+
     // Add event listener for reset button
     resetButton.addEventListener("click", () => {
+        var blankTitle = document.getElementById('title-text');
+
         // Reset the data to the original state
         songData = originalData;
         
         // Repopulate the table with original data
         populateSongTable(songData);
-    
+       
+        // Reset the radio buttons to their original state
+        var radioButtons = document.querySelectorAll('input[name="radio"]');
+        radioButtons.forEach(function(radioButton) {
+            radioButton.checked = false;
+        });
+
+        // Reset the select element to its original state
+        var selectGenreElement = document.getElementById('genre-select');
+        selectGenreElement.selectedIndex = 0;
+
+        var selectArtistElement = document.getElementById('artist-select');
+        selectArtistElement.selectedIndex = 0;
+
+        var selectTitleElement = document.getElementById('title-text');
+        selectTitleElement.value = blankTitle;
     });
 
 
