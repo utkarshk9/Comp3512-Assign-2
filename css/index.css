@@ -127,20 +127,20 @@ th {
 #singleSongViewContainer {
     display: grid;
     grid-template-columns: 1fr 1fr; 
-    gap: 20px; 
-    
+    gap: 200px; 
+    max-width: 100%;
 }
 
 #songDetailsContainer {
+    display: inline-block; /* or use display: inline; */
+    background-color: #F39F5A;
     
-    float: left;
-   
 }
+
 #radarChartContainer {
-    
-    float: right;
-    height: 300;
-    width: 300;
+    display: inline-block; /* or use display: inline; */
+    background-color: #F39F5A;
+    max-width: 100%;
 }
 
 
