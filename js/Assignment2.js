@@ -1,4 +1,4 @@
-const api = "http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
+const api = "https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -183,11 +183,8 @@ document.addEventListener("DOMContentLoaded", function () {
     showElement(singleViewContainer);
     
     displaySongDetails(song);
+    displayRadarChart(song);
 
-
-    //displayRadarChart(song);
-
-  
     const backButton = document.getElementById("closeViewButton")
     backButton.addEventListener('click', () => {
         hideElement(singleViewContainer);
@@ -231,7 +228,43 @@ function displaySongDetails(song) {
         <p>Popularity: ${song.details.popularity}</p>
     `;
 }
+
 function displayRadarChart(song) {
+  const radarContainer = document.querySelector('#radarChartContainer');
+  
+  // Ensure the container is cleared before drawing
+  radarContainer.innerHTML = '<canvas id="radarChart"></canvas>';
+
+  const radarChartCanvas = document.getElementById('radarChart').getContext('2d');
+  new Chart(radarChartCanvas, {
+    type: 'radar',
+    data: {
+      labels: ['Energy', 'Danceability', 'Liveness', 'Valence', 'Acousticness', 'Speechiness'],
+      datasets: [{
+        label: 'Song Analytics',
+        backgroundColor: 'white',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 4,
+        data: [
+          song.analytics.energy,
+          song.analytics.danceability,
+          song.analytics.liveness,
+          song.analytics.valence,
+          song.analytics.acousticness,
+          song.analytics.speechiness
+        ]
+      }]
+    },
+    options: {
+      scale: {
+        ticks: { beginAtZero: true, max: 100 },
+        pointLabels: { fontSize: 26 }
+      },
+      legend: { display: false }
+    }
+  });
+
+
 }
 
 });

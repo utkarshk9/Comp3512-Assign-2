@@ -124,3 +124,25 @@ th {
     background-color: #F05941;
     color: #FFFFFF;
 }
+#singleSongViewContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    
+}
+
+#songDetailsContainer {
+    
+    float: left;
+   
+}
+#radarChartContainer {
+    
+    float: right;
+    height: 300;
+    width: 300;
+}
+
+
+
+
