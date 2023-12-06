@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tableSpans = document.querySelectorAll('.tableheader');
     let sortOrder = 1; // 1 for ascending, -1 for descending
     let originalData; 
+
     
 
     // Check if song data is already in local storage
@@ -89,16 +90,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Repopulate the table with filtered data
-        populateSongTable(songData);
-    
-        
+        populateSongTable(songData);        
     });
 
     // Add event listener for reset button
     resetButton.addEventListener("click", () => {
         // Reset the data to the original state
         songData = originalData;
-
+        
         // Repopulate the table with original data
         populateSongTable(songData);
     
@@ -125,16 +124,10 @@ document.addEventListener("DOMContentLoaded", function () {
         span.addEventListener('click', function () {
            
            var th = span.parentElement;
-
-     
            var columnIndex = Array.from(th.parentElement.children).indexOf(th);
-
            var rows = document.querySelectorAll('#song-table tbody tr');
-
-          
            var rowsArray = Array.from(rows);
 
-           
            rowsArray.sort(function (a, b) {
                var firstValue = a.children[columnIndex].innerText.trim().toLowerCase();
                var secondValue = b.children[columnIndex].innerText.trim().toLowerCase();
@@ -145,26 +138,21 @@ document.addEventListener("DOMContentLoaded", function () {
                return 0;
            });
 
-       
            var tbody = document.querySelector('#song-table tbody');
            tbody.innerHTML = '';
-
-           
+        
            rowsArray.forEach(function (row) {
                tbody.appendChild(row);
            });
-
-           
+         
            tableSpans.forEach(function (otherSpan) {
                if (otherSpan !== span) {
                    otherSpan.innerHTML = otherSpan.innerText;
                }
            });
-
-           
+        
            sortOrder *= -1;
 
-          
            var currentText = span.innerText;
 
            // Check if the arrow is '↑' or '↓'
@@ -184,6 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
            }
        });
    });
+
+
  //-----------------------------------------------------Single View Page----------------------------------------------------
    function singleView(song) {
     const hideElement = (element) => element.style.display = 'none';
