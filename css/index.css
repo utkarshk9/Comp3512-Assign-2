@@ -20,7 +20,16 @@ h1, h2 {
 main {
     padding: 20px;
 }
-
+.song-title {
+    text-decoration: underline; /* or use 'text-decoration: none;' for no underline */
+    cursor: pointer; /* Add a pointer cursor to indicate interactivity */
+    color: blue; /* Set the color of the hyperlink, you can choose any color */
+  }
+  
+  .song-title:hover {
+    text-decoration: none; /* Remove underline on hover, if desired */
+    color: red; /* Set the color for the hyperlink on hover, you can choose any color */
+  }
 section#search {
     background-color: #872341;
     padding: 20px;

@@ -199,16 +199,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
  // song radar chart and song detail function.
- const titles = document.querySelectorAll(".song-title");
 
- for (const title of titles) {
-    title.addEventListener("click", () => {
-        const songId1 = title.getAttribute("data-song-id");
+ const songTitles = document.querySelector("#song-table");
+
+ songTitles.addEventListener("click", (event) =>{
+    const clickedElement = event.target;
+    if (clickedElement.classList.contains("song-title")) {
+        const songId1 = clickedElement.getAttribute("data-song-id");
         const selectedSong = songData.find((song) => song.song_id == songId1);
         singleView(selectedSong);
-    });
-    title.style.textDecoration = 'underline';
- }
+    }
+ }); 
+
+ "song-title".style.textDecoration = 'underline';
+ 
 
  function displaySongDetails(song) {
     const details = document.querySelector('#songDetailsContainer'); 
