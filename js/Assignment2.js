@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const titleFilter = document.getElementById("title-Radio").checked;
         const artistFilter = document.getElementById("artist-Radio").checked;
         const genreFilter = document.getElementById("genre-Radio").checked;
-        const searchText = document.getElementById("title-Text").value.toLowerCase();
+        const searchText = document.getElementById("title-text").value.toLowerCase();
         const artistSelect = document.getElementById("artist-select");
         const selectedArtist = artistSelect.options[artistSelect.selectedIndex].text;
         const genreSelect = document.getElementById("genre-select");
@@ -111,12 +111,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add event listener for reset button
     resetButton.addEventListener("click", () => {
+        var blankTitle = "";
+
         // Reset the data to the original state
         songData = originalData;
 
         // Repopulate the table with original data
         populateSongTable(songData);
-
+    
     });
 
 
