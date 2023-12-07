@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${song.year}</td>
                 <td>${song.genre.name}</td>
                 <td>${song.details.popularity}</td>
-                <button class="add-to-playlist" data-song-id="${song.song_id}">Add to Playlist</button>`;
+                <td><button class="add-to-playlist" data-song-id="${song.song_id}">Add</button></td>`;
             songTableBody.appendChild(row);
         });
         // Add event listener for song title clicks to navigate to Single Song View
@@ -76,15 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
             notification.style.display = "none";
         }, 3000);
     }
-    // div.addEventListener("click", () => {
-    //     if(!this.find('input:radio').prop('checked')) {
-    //         this.find('input:radio').prop('checked', true);
-    //     }
-
-    //     else {
-    //         this.find('input:radio').prop('checked', false);
-    //     }
-    // });
 
     // Add event listener for filter button
     filterButton.addEventListener("click", () => {
@@ -118,6 +109,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Repopulate the table with original data
         populateSongTable(songData);
+
+        // Reset the radio buttons to their original state
+        var radioButtons = document.querySelectorAll('input[name="radio"]');
+        radioButtons.forEach(function(radioButton) {
+            radioButton.checked = false;
+        });
+
+        // Reset the select element to its original state
+        var selectGenreElement = document.getElementById('genre-select');
+        selectGenreElement.selectedIndex = 0;
+
+        var selectArtistElement = document.getElementById('artist-select');
+        selectArtistElement.selectedIndex = 0;
+
+        var selectTitleElement = document.getElementById('title-text');
+        selectTitleElement.value = blankTitle;
     
     });
 
