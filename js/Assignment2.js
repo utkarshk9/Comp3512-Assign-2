@@ -218,13 +218,6 @@ document.addEventListener("DOMContentLoaded", function () {
         displaySongDetails(song);
         displayRadarChart(song);
     
-        const backButton = document.getElementById("closeViewButton");
-        backButton.addEventListener('click', () => {
-            hideElement(singleViewContainer);
-            showElement(songTable);
-        });
-    
-        singleViewContainer.appendChild(backButton);
     }
  
 
@@ -330,9 +323,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     // Function to populate the playlist table
-    function populatePlaylistTable() {
+     function populatePlaylistTable() {
         const playlistTableBody = document.querySelector("#playlist-table tbody");
-        playlistTableBody.innerHTML = ""; // Clear current playlist view
+        playlistTableBody.innerHTML = ""; 
     
         playlist.forEach(song => {
             const row = document.createElement("tr");
@@ -347,11 +340,11 @@ document.addEventListener("DOMContentLoaded", function () {
             playlistTableBody.appendChild(row);
         
     
-        const songname = row.cells[0];
-        songname.addEventListener('click', event => {
-            singleView(song);
+            const songname = row.querySelector(".song-title");
+            songname.addEventListener('click', () => {
+                singleView(song);
+            });
         });
-    });
 
 
     
@@ -362,24 +355,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     
-        // Update summary information
-        // updatePlaylistSummary();
+        
     }
-
-    // Function to remove a song from the playlist
-    function removeSongFromPlaylist(songId) {
-        playlist = playlist.filter(song => song.song_id != songId);
-        populatePlaylistTable(); // Update the playlist view
-        updatePlaylistSummary();
-    }
-    function clearPlaylist() {
-        playlist = [];
-        populatePlaylistTable(); // Update the playlist view
-        updatePlaylistSummary(); // Update the summary info
-    }
-    document.getElementById("clear-playlist-button").addEventListener("click", clearPlaylist);
-    // Attach this function to a 'Clear Playlist' button
-    //document.getElementById("clear-playlist-button").addEventListener("click", clearPlaylist);
     function updatePlaylistSummary() {
         const numSongs = playlist.length;
         let avgPopularity = 0;
@@ -392,20 +369,32 @@ document.addEventListener("DOMContentLoaded", function () {
         const summaryElement = document.getElementById("playlist-summary");
         summaryElement.textContent = `Songs: ${numSongs}, Average Popularity: ${avgPopularity.toFixed(2)}`;
     }
-
-
+    // Function to remove a song from the playlist
+    function removeSongFromPlaylist(songId) {
+        playlist = playlist.filter(song => song.song_id != songId);
+        populatePlaylistTable(); // Update the playlist view
+        updatePlaylistSummary();
+    }
+    function clearPlaylist() {
+        playlist = [];
+        populatePlaylistTable(); // Update the playlist view
+        updatePlaylistSummary(); // Update the summary info
+    }
+    document.getElementById("clear-playlist-button").addEventListener("click", clearPlaylist);
+    
+    
 
     // adding a song to the playlist
    
     function addSongToPlaylist(songId) {
         const songToAdd = originalData.find(song => song.song_id == songId);
         if (songToAdd && !playlist.some(song => song.song_id == songId)) {
-            console.log("Adding song:", songToAdd.title); // Debugging line
             playlist.push(songToAdd);
-            populatePlaylistTable(); // Update the playlist view
+            populatePlaylistTable(); 
             updatePlaylistSummary();
             showNotification();
         } else {
+            showNotification("Song already added");
             console.log("Song already in playlist or not found"); // Debugging line
         }
        
