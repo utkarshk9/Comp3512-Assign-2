@@ -203,32 +203,30 @@ document.addEventListener("DOMContentLoaded", function () {
     function singleView(song) {
         const hideElement = (element) => element.style.display = 'none';
         const showElement = (element) => element.style.display = 'block';
-
+    
         const songTable = document.getElementById('song-table');
         const playlistTable = document.getElementById('playlist-table');
         const singleViewContainer = document.getElementById('singleSongViewContainer');
-
+    
         // Hide the song table and playlist table
         hideElement(songTable);
         hideElement(playlistTable);
-
+    
         // Show the single song view
         showElement(singleViewContainer);
-
-
+    
         displaySongDetails(song);
         displayRadarChart(song);
-
-        const backButton = document.getElementById("closeViewButton")
+    
+        const backButton = document.getElementById("closeViewButton");
         backButton.addEventListener('click', () => {
             hideElement(singleViewContainer);
             showElement(songTable);
         });
-
-
+    
         singleViewContainer.appendChild(backButton);
     }
-
+ 
 
     // song radar chart and song detail function.
 
@@ -305,56 +303,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //-----------------------------------------------------Playlist View----------------------------------------------------
     document.getElementById("playlist-button").addEventListener("click", () => {
-        toggleView();
+        toggleView("playlist-table");
     });
-    function toggleView() {
+    
+    let playlist = [];
+    
+    function toggleView(view) {
         const songTableView = document.getElementById("song-table");
         const playlistView = document.getElementById("playlist-table");
         const singleSongView = document.getElementById("singleSongViewContainer");
-
+    
         // Hide song table and single song view
         songTableView.style.display = "none";
+        // playlistView.style.display = "none"; // This line might not be needed
         singleSongView.style.display = "none";
-
-        // Show playlist view
-        playlistView.style.display = "block";
+    
+        // Show the selected view
+        if (view === "song-table") {
+            songTableView.style.display = "block";
+        } else if (view === "playlist-table") {
+            populatePlaylistTable(); // Update the playlist view before showing it
+            playlistView.style.display = "block";
+        } else if (view === "singleSongViewContainer") {
+            singleSongView.style.display = "block";
+        }
     }
-    let playlist = [];
-
+    
     // Function to populate the playlist table
     function populatePlaylistTable() {
         const playlistTableBody = document.querySelector("#playlist-table tbody");
         playlistTableBody.innerHTML = ""; // Clear current playlist view
-
+    
         playlist.forEach(song => {
             const row = document.createElement("tr");
             row.innerHTML = `
-             <td class="song-title" style="cursor: pointer;" data-song-id="${song.song_id}">${song.title}</td>
-             <td>${song.artist.name}</td>
-             <td>${song.year}</td>
-             <td>${song.genre.name}</td>
-             <td>${song.details.popularity}</td>
-             <td><button class="remove-from-playlist" data-song-id="${song.song_id}">Remove</button></td>
-         `;
+                <td class="song-title" style="cursor: pointer;" data-song-id="${song.song_id}">${song.title}</td>
+                <td>${song.artist.name}</td>
+                <td>${song.year}</td>
+                <td>${song.genre.name}</td>
+                <td>${song.details.popularity}</td>
+                <td><button class="remove-from-playlist" data-song-id="${song.song_id}">Remove</button></td>
+            `;
             playlistTableBody.appendChild(row);
+        
+    
+        const songname = row.cells[0];
+        songname.addEventListener('click', event => {
+            singleView(song);
         });
+    });
 
-        // Add click event for Single Song View
-        document.querySelectorAll(".song-title").forEach(title => {
-            title.addEventListener("click", () => {
-                singleView(title.dataset.songId); // Implement this function as needed
-            });
-        });
 
+    
         // Add click event for removing songs
         document.querySelectorAll(".remove-from-playlist").forEach(button => {
             button.addEventListener("click", () => {
                 removeSongFromPlaylist(button.dataset.songId);
             });
         });
-
+    
         // Update summary information
-        //updatePlaylistSummary();
+        // updatePlaylistSummary();
     }
 
     // Function to remove a song from the playlist
