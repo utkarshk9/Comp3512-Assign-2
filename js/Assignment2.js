@@ -500,9 +500,6 @@ document.addEventListener("DOMContentLoaded", function () {
         
         songTableView.style.display = "block";
         serch.style.display = "flex";
-       
-    
-        
         playlistView.style.display = "none";
         singleSongView.style.display = "none";
         playlistS.style.display = "none";
@@ -513,12 +510,20 @@ document.addEventListener("DOMContentLoaded", function () {
     function CreditsPopup() {
         const creditsPopup = document.getElementById("credits-popup");
         creditsPopup.style.display = "block";
-        setTimeout(function () {
-          creditsPopup.style.display = "none";
-        }, 5000); // Disappear after 5 seconds
-      }
-
-      // Event listener for mouseover on the Credits button
-      document.getElementById("credits-btn").addEventListener("mouseover", CreditsPopup);
+    
+        // Add event listener to check if the mouse is over the popup
+        creditsPopup.addEventListener("mouseover", function () {
+            // Cancel the hide timeout if the mouse is over the popup
+            clearTimeout(hideTimeout);
+        });
+    
+        // Set a timeout to hide the popup after 5 seconds
+        const hideTimeout = setTimeout(function () {
+            creditsPopup.style.display = "none";
+        }, 3000);
+    }
+    
+    // Event listener for mouseover on the Credits button
+    document.getElementById("credits-btn").addEventListener("mouseover", CreditsPopup);
     
 });
