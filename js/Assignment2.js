@@ -511,19 +511,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const creditsPopup = document.getElementById("credits-popup");
         creditsPopup.style.display = "block";
     
-        // Add event listener to check if the mouse is over the popup
-        creditsPopup.addEventListener("mouseover", function () {
-            // Cancel the hide timeout if the mouse is over the popup
+        
+        creditsPopup.addEventListener("mouseover",  ()=> {
+            
             clearTimeout(hideTimeout);
         });
     
-        // Set a timeout to hide the popup after 5 seconds
-        const hideTimeout = setTimeout(function () {
+        
+        const hideTimeout = setTimeout(()=> {
             creditsPopup.style.display = "none";
         }, 3000);
     }
     
-    // Event listener for mouseover on the Credits button
+    
     document.getElementById("credits-btn").addEventListener("mouseover", CreditsPopup);
     
 });

@@ -40,7 +40,18 @@ main {
 .song-title:hover {
     color: #c0392b; 
 }
+.cimg{
+    
+        display: block;
+        margin: auto;
+        border: 5px solid #e74c3c; 
+        border-radius: 10px; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        margin-top: 7%;
+        margin-bottom: 7%;
 
+      }
+  
 section#search {
     background-color: #e74c3c;
     padding: 20px;
@@ -301,7 +312,7 @@ img {
 .hidden {
     display: none;
 }
-/* Add to Playlist button */
+
 button.remove-from-playlist {
     background-color: #27ae60; /* Green color */
     color: #fff;
@@ -337,7 +348,7 @@ button.add-to-playlist:hover {
 }
 
 #credits-btn {
-    background-color: #4CAF50; 
+    background-color: #1a1a1a; 
     color: white; 
     padding: 10px 20px; 
     border: none; 
@@ -345,7 +356,10 @@ button.add-to-playlist:hover {
     cursor: pointer; 
     position: relative;
     margin-left: auto;
-    margin-right: -1250px;
+    margin-right: -650px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
   }
   
   #playlist-btn:hover,
@@ -354,8 +368,8 @@ button.add-to-playlist:hover {
       flex-direction: column;
       position: absolute;
       top: 100%;
-      left: 0;
-      z-index: 2;}
+      left: 1;
+      z-index: 0;}
   
       #credits-popup {
         display: none;
@@ -368,7 +382,9 @@ button.add-to-playlist:hover {
         padding-left: 9px;
         border: none; 
         border-radius: 5px; 
+        overflow: hidden;
     }
+    
 
     #credits-popup li {
         list-style: none;
