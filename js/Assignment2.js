@@ -67,14 +67,24 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
-    function showNotification(message) {
-        const notification = document.getElementById("notification");
-        notification.style.display = "block";
-        notification.textContent = message || "Notification";
-    
+
+    function showNotificationOne(message) {
+        const notification1 = document.getElementById("notification1");   
+        notification1.textContent = message || "Notification";    
+        notification1.style.display = "block";       
         // Hide the notification after 3 seconds
         setTimeout(() => {
-            notification.style.display = "none";
+            notification1.style.display = "none";
+        }, 3000);
+    }
+
+    function showNotificationTwo(message) {
+        const notification2 = document.getElementById("notification2");
+        notification2.textContent = message || "Notification";
+        notification2.style.display = "block";      
+
+        setTimeout(() => {
+            notification2.style.display = "none";
         }, 3000);
     }
 
@@ -252,11 +262,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const durationString = `${mins} mins and ${secs} secs`;
 
         details.innerHTML = `
-        <h2>${song.title}</h2>
+        <br>
+        <h2>Song Information</h2>
+        <h3>${song.title}</h3>
         <p>Artist: ${song.artist.name}</p>
         <p>Genre: ${song.genre.name}</p>
         <p>Year: ${song.year}</p>
         <p>Duration: ${durationString}</p>
+        <br>
+        <h3>Analysis Data</h3>
         <p>BPM: ${song.details.bpm}</p>
         <p>Energy: ${song.analytics.energy}</p>
         <p>Danceability: ${song.analytics.danceability}</p>
@@ -469,9 +483,9 @@ document.addEventListener("DOMContentLoaded", function () {
             playlist.push(songToAdd);
             populatePlaylistTable(); 
             updatePlaylistSummary();
-            showNotification("Song added to playlist");
+            showNotificationOne("Song added to playlist");
         } else {
-            showNotification("Song already added to playlist");
+            showNotificationTwo("Song already added to playlist");
             
         }
        
