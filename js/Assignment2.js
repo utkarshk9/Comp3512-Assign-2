@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const addToPlaylistButtons = document.querySelectorAll(".add-to-playlist");
         addToPlaylistButtons.forEach(button => {
             button.addEventListener("click", () => {
-                const songId = button.getAttribute('data-song-id'); // Declare songId here
+                const songId = button.getAttribute('data-song-id'); 
                 console.log("Add to Playlist clicked for song ID:", songId);
                 addSongToPlaylist(songId);
             });
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 (!genreFilter || song.genre.name === selectedGenre);
         });
 
-        // Repopulate the table with filtered data
+        
         populateSongTable(songData);
     });
 
@@ -115,19 +115,19 @@ document.addEventListener("DOMContentLoaded", function () {
     resetButton.addEventListener("click", () => {
         var blankTitle = "";
 
-        // Reset the data to the original state
+      
         songData = originalData;
 
-        // Repopulate the table with original data
+        
         populateSongTable(songData);
 
-        // Reset the radio buttons to their original state
+    
         var radioButtons = document.querySelectorAll('input[name="radio"]');
         radioButtons.forEach(function(radioButton) {
             radioButton.checked = false;
         });
 
-        // Reset the select element to its original state
+        
         var selectGenreElement = document.getElementById('genre-select');
         selectGenreElement.selectedIndex = 0;
 
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
         hideElement(serch);
         
     
-        // Show the single song view
+       
         showElement(singleViewContainer);
     
         displaySongDetails(song);
@@ -381,14 +381,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const serch = document.getElementById("search")
         
 
-        // Hide song table and single song view
+        
         songTableView.style.display = "none";
         singleSongView.style.display = "none";
         playlistS.style.display="none";
         serch.style.display = "none";
        
 
-        // Show the selected view
+        
         if (view === "song-table") {
             songTableView.style.display = "block";
             closeButton.style.display = "none";
@@ -397,7 +397,7 @@ document.addEventListener("DOMContentLoaded", function () {
            
 
         } else if (view === "playlist-table") {
-            populatePlaylistTable(); // Update the playlist view before showing it
+            populatePlaylistTable(); 
             playlistView.style.display = "block";
             closeButton.style.display = "block";;
             playlistS.style.display="block";
