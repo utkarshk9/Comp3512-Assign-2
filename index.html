@@ -19,6 +19,7 @@
 <h1>Comp3512 - Assignment 2</h1>
 <br>
 <h2>Utkarsh Kapoor, Adam Kovacs and Victor Alli</h2>
+<button id="playlist-button">Playlist</button>
 </header>
 
 <main>
@@ -44,10 +45,10 @@
                     <option disabled selected>Select an Artist</option>
                 </select>
             </div>
-
+            <div id="buttons-container">
             <button id="filter-button">Filter</button>
             <button id="reset-button">Reset</button>
-            <button id="playlist-button">Playlist</button>
+            
         </section>
 
         <section id="song-table"> 
@@ -68,50 +69,51 @@
             </table>
         </section>
 
-        <div id="singleSongViewContainer" style="display: none;">
-            <h2>Single Song View</h2>
-            <div id="songDetailsContainer">
-            </div>
-            <div id="radarChartContainer">
-                <canvas id="radarChart"></canvas>
-            </div>
-            
-        </div>
+        
 
-        <!-- Playlist View-->
-        <div id="playlist-summary">Songs: 0, Average Popularity: 0.00</div>
-        <button id="close-view-button">Close View</button>
-        <main id="playlist-table" class="hidden">
-            <div>
-                <h1 class="text">Playlist Details</h1>
-                <span class="text"># of songs: </span>
-                <button id="clear-playlist-button">Clear Playlist</button>
-                <table id="favoriteTable">
-                    <thead>
-                    <tr id="columnHeader">
-                        <th>Title</th>
-                        <th>Artist</th>
-                        <th>Year</th>
-                        <th>Genre</th>
-                        <th>Popularity</th>
-                        <th>Remove</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </main>
-    </body>
+<div id="singleSongViewContainer" style="display: none;">
+    <button id="close-view-button">Close View</button>
+    <h2>Single Song View</h2>
+    
+    <div id="songDetailsContainer">
+    </div>
+    <div id="radarChartContainer">
+        <canvas id="radarChart"></canvas>
+    </div>
+    
+</div>
 
-          
-      </main>
+<!-- Playlist View-->
+<div id="playlist-summary" class="hidden">Songs: 0, Average Popularity: 0.00</div>
+<main id="playlist-table" class="hidden">
+    <button id="close-playlist-view-button">Close View</button>
+    <div>
+        <h1 class="text">Playlist Details</h1>
+        <span class="text"># of songs: </span>
+        <button id="clear-playlist-button">Clear Playlist</button>
+        <table id="favoriteTable">
+            <thead>
+            <tr id="columnHeader">
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Popularity</th>
+                <th>Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<!-- ... (the rest of your HTML) -->
 </body>
 </html>

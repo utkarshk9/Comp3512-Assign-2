@@ -207,19 +207,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const songTable = document.getElementById('song-table');
         const playlistTable = document.getElementById('playlist-table');
         const singleViewContainer = document.getElementById('singleSongViewContainer');
+        const closeButton = document.getElementById("close-view-button");
+        const playlistS= document.getElementById("playlist-summary");
+        const searchText = document.getElementById("search");
     
         // Hide the song table and playlist table
         hideElement(songTable);
         hideElement(playlistTable);
+        hideElement(playlistS);
+        hideElement(searchText);
     
         // Show the single song view
         showElement(singleViewContainer);
     
         displaySongDetails(song);
         displayRadarChart(song);
-    
+        showElement(closeButton);
     }
- 
+    document.getElementById("close-view-button").addEventListener("click", closeView);
+
 
     // song radar chart and song detail function.
 
@@ -305,22 +311,42 @@ document.addEventListener("DOMContentLoaded", function () {
         const songTableView = document.getElementById("song-table");
         const playlistView = document.getElementById("playlist-table");
         const singleSongView = document.getElementById("singleSongViewContainer");
-    
+        const closeButton = document.getElementById("close-view-button");
+        const playlistS= document.getElementById("playlist-summary");
+        const searchText = document.getElementById("search");
+
         // Hide song table and single song view
         songTableView.style.display = "none";
-        // playlistView.style.display = "none"; // This line might not be needed
         singleSongView.style.display = "none";
-    
+        playlistS.style.display="none";
+       
+
         // Show the selected view
         if (view === "song-table") {
             songTableView.style.display = "block";
+            closeButton.style.display = "none";
+            searchText.style.display = "block";
+           
+
         } else if (view === "playlist-table") {
             populatePlaylistTable(); // Update the playlist view before showing it
             playlistView.style.display = "block";
+            closeButton.style.display = "block";;
+            playlistS.style.display="block";
+          
         } else if (view === "singleSongViewContainer") {
             singleSongView.style.display = "block";
+            closeButton.style.display = "block";
+            
         }
     }
+
+
+
+
+
+    
+    
     
     // Function to populate the playlist table
      function populatePlaylistTable() {
@@ -344,6 +370,7 @@ document.addEventListener("DOMContentLoaded", function () {
             songname.addEventListener('click', () => {
                 singleView(song);
             });
+            
         });
 
 
@@ -403,13 +430,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const songTableView = document.getElementById("song-table");
         const playlistView = document.getElementById("playlist-table");
         const singleSongView = document.getElementById("singleSongViewContainer");
+        const playlistS= document.getElementById("playlist-summary");
+        const searchText = document.getElementById("search");
     
         // Show the song table view
         songTableView.style.display = "block";
+        searchText.display.style="block";
     
         // Hide the playlist and single song view
         playlistView.style.display = "none";
         singleSongView.style.display = "none";
+        playlistS.style.display = "none";
+        
     }
-    document.getElementById("close-view-button").addEventListener("click", closeView);
+    document.getElementById("close-playlist-view-button").addEventListener("click", closeView);
+    
 });
