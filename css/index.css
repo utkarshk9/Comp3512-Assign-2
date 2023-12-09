@@ -12,7 +12,7 @@ body {
 header {
     background-color: #e74c3c; 
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     text-align: center;
     padding: 20px;
 }
@@ -148,7 +148,7 @@ section#song-table h2 {
     animation: flash 2s infinite; 
 }
 
-button#filter-button,
+
 button#reset-button,
 button#clear-playlist-button,
 button#close-view-button {
@@ -161,6 +161,19 @@ button#close-view-button {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+button#filter-button {
+    background-color: #1a1a1a; 
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 15px;
 }
 
 button#close-playlist-view-button {
@@ -185,6 +198,7 @@ button#playlist-button {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-right: 15px;
 }
 
 button#playlist-header-button:hover {
@@ -319,6 +333,8 @@ button.add-to-playlist:hover {
     cursor: pointer; 
     margin-left: 5px; 
     position: relative;
+    margin-left: auto;
+    margin-right: 15px;
   }
   
   #playlist-btn:hover,
