@@ -1,27 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <meta charset="utf-8">
-   <title>Assignment-2</title>
+    <meta charset="utf-8">
+    <title>Assignment-2</title>
 
     <title>Search/Browse Songs</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <script src="data/Artist.json" ></script>
+    <script src="data/Artist.json"></script>
     <script src="data/Genre.json"></script>
     <script src="data/Sample-songs.json"></script>
     <script src="js/Assignment2.js" defer></script>
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
+
 <body>
 
+<<<<<<< HEAD
+    <header>
+        <h1>Comp3512 - Assignment 2</h1>
+        <br>
+        <h2>Utkarsh Kapoor, Adam Kovacs and Victor Alli</h2>
+        <button id="playlist-button">Playlist</button>
+    </header>
+
+    <main>
+=======
 <header>
 <h1>Comp3512 - Assignment 2</h1>
-<br>
-<h2>Utkarsh Kapoor, Adam Kovacs and Victor Alli</h2>
+<button id="credits-btn">Credits</button>
+<button id="playlist-button">Playlist</button>
 </header>
 
+<div id="credits-popup">
+    <p>Group Members:</p>
+    <ul>
+      <li>Utkarsh</li>
+      <li>Adam</li>
+      <li>Victor</li>
+    </ul>
+    <p><a href="https://github.com/utkarshk9/Comp3512-Assign-2">Assignment GitHub Page</a></p>
+  </div>
+
 <main>
+>>>>>>> 4327a8607bbdb345f2f68721853ea404563d0e42
         <section id="search">
             <div>
                 <label for="titleRadio">Title:</label>
@@ -44,14 +67,21 @@
                     <option disabled selected>Select an Artist</option>
                 </select>
             </div>
+            <div id="buttons-container">
+                <button id="filter-button">Filter</button>
+                <button id="reset-button">Reset</button>
 
-            <button id="filter-button">Filter</button>
-            <button id="reset-button">Reset</button>
-            <button id="playlist-button">Playlist</button>
         </section>
 
-        <section id="song-table"> 
+<<<<<<< HEAD
+        <section id="song-table">
             <div id="notification" style="display: none;">Song added to playlist!</div>
+=======
+        <section id="song-table"> 
+            <div id="notification1" style="display: none;"></div>
+            <div id="notification2" style="display: none;"></div>
+           
+>>>>>>> 4327a8607bbdb345f2f68721853ea404563d0e42
             <h2>Song Table</h2>
             <table>
                 <thead>
@@ -68,34 +98,39 @@
             </table>
         </section>
 
+
+<<<<<<< HEAD
+
         <div id="singleSongViewContainer" style="display: none;">
+            <button id="close-view-button">Close View</button>
             <h2>Single Song View</h2>
+
             <div id="songDetailsContainer">
             </div>
             <div id="radarChartContainer">
                 <canvas id="radarChart"></canvas>
             </div>
-            
+
         </div>
 
         <!-- Playlist View-->
-        <div id="playlist-summary">Songs: 0, Average Popularity: 0.00</div>
-        <button id="close-view-button">Close View</button>
+        <div id="playlist-summary" class="hidden">Songs: 0, Average Popularity: 0.00</div>
         <main id="playlist-table" class="hidden">
+            <button id="close-playlist-view-button">Close View</button>
             <div>
                 <h1 class="text">Playlist Details</h1>
                 <span class="text"># of songs: </span>
                 <button id="clear-playlist-button">Clear Playlist</button>
                 <table id="favoriteTable">
                     <thead>
-                    <tr id="columnHeader">
-                        <th>Title</th>
-                        <th>Artist</th>
-                        <th>Year</th>
-                        <th>Genre</th>
-                        <th>Popularity</th>
-                        <th>Remove</th>
-                    </tr>
+                        <tr id="columnHeader">
+                            <th>Title</th>
+                            <th>Artist</th>
+                            <th>Year</th>
+                            <th>Genre</th>
+                            <th>Popularity</th>
+                            <th>Remove</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
@@ -109,9 +144,75 @@
                 </table>
             </div>
         </main>
-    </body>
+        <!--Footer-->
+        <footer>
+            <div class="footer-container">
+                <div class="footer-course">
+                    <h3>COMP 3512</h3>
+                    <p>Web Development</p>
+                </div>
+                <div class="footer-repo">
+                    <h3>GitHub Repository</h3>
+                    <p>Site Repo: <a href="https://github.com/utkarshk9/Comp3512-Assign-2" target="_blank">Site Repository</a></p>
+                </div>
+                <div class="footer-copy">
+                    <p>&copy; 2023 Adam Kovacs, Utkarsh Kapoor and Victor Alli. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+=======
+<div id="singleSongViewContainer" style="display: none;">
+    <button id="close-view-button">Close View</button>
+    <h2>Single Song View</h2>
+    
+    <div id="songDetailsContainer">
+    </div>
 
-          
-      </main>
+    <img src="./image/giphy.gif">
+
+    <div id="radarChartContainer">
+        <canvas id="radarChart"></canvas>
+    </div>
+    
+</div>
+
+<!-- Playlist View-->
+<div id="playlist-summary" class="hidden">Songs: 0, Average Popularity: 0.00</div>
+<main id="playlist-table" class="hidden">
+    <button id="close-playlist-view-button">Close View</button>
+    <div>
+        <h1 class="text">Playlist Details</h1>
+        
+        <button id="clear-playlist-button">Clear Playlist</button>
+        <table id="favoriteTable">
+            <thead>
+            <tr id="columnHeader">
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Popularity</th>
+                <th>Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    <li>COMP 3512</li>
+    <li>&copy;Utkarsh Kapoor, Adam Kovacs and Victor Alli</li>
+    <li><a href="https://github.com/utkarshk9/Comp3512-Assign-2">Assignment GitHub Page</a></li>
+</footer>
+>>>>>>> 4327a8607bbdb345f2f68721853ea404563d0e42
 </body>
+
 </html>
