@@ -67,9 +67,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
-    function showNotification() {
+    function showNotification(message) {
         const notification = document.getElementById("notification");
         notification.style.display = "block";
+        notification.textContent = message || "Notification";
     
         // Hide the notification after 3 seconds
         setTimeout(() => {
@@ -192,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             else {
-                // Add arrow icon for the first time
+                
                 span.innerHTML = currentText + (sortOrder === 1 ? ' ↑' : ' ↓');
             }
         });
@@ -209,13 +210,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const singleViewContainer = document.getElementById('singleSongViewContainer');
         const closeButton = document.getElementById("close-view-button");
         const playlistS= document.getElementById("playlist-summary");
-        const searchText = document.getElementById("search");
+        const serch = document.getElementById("search")
+       
     
-        // Hide the song table and playlist table
+       
         hideElement(songTable);
         hideElement(playlistTable);
         hideElement(playlistS);
-        hideElement(searchText);
+        hideElement(serch);
+        
     
         // Show the single song view
         showElement(singleViewContainer);
@@ -263,20 +266,20 @@ document.addEventListener("DOMContentLoaded", function () {
         <p>Popularity: ${song.details.popularity}</p>
     `;
     }
-
     function displayRadarChart(song) {
         const radarContainer = document.querySelector('#radarChartContainer');
         radarContainer.innerHTML = '<canvas id="radarChart"></canvas>';
-
+    
         const radarChartCanvas = document.getElementById('radarChart').getContext('2d');
+        Chart.defaults.scale.grid.color = 'white';
+    
         new Chart(radarChartCanvas, {
             type: 'radar',
             data: {
                 labels: ['Energy', 'Danceability', 'Liveness', 'Valence', 'Acousticness', 'Speechiness'],
                 datasets: [{
                     label: 'Song Analytics',
-                    backgroundColor: 'transparent',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderColor: '#e74c3c',
                     borderWidth: 4,
                     data: [
                         song.analytics.energy,
@@ -288,17 +291,65 @@ document.addEventListener("DOMContentLoaded", function () {
                     ]
                 }]
             },
-            options: {
-                scale: {
-                    ticks: { beginAtZero: true, max: 100 },
-                    pointLabels: { fontSize: 26 }
-                },
-                legend: { display: false }
+            
+         options: {
+            plugins: {
+               legend:{
+                  display: true,
+                  labels: {color: "white"},
+               },
+               title: {
+                  display: true,
+                  text: `Radar Analysis`,
+                  align: 'center',
+                  color: 'white',
+                  font:{
+                        color: 'white',
+                        size: 20,
+                        weight: 400
+                  }
+               }
+            },
+            scales: {
+               r: {
+                  ticks: {
+                        color: "white",
+                        backdropColor: "transparent",
+                        textStrokeWidth: 10,
+                        font:{
+                           size: 13
+                        }
+                  },
+                  pointLabels: {
+                        color: 'white',
+                        font:{
+                           size: 14,
+                           weight: 'bold'
+                        }
+                  },
+                  grid: {
+                        circular: true,
+                        color: "white",
+                        textStrokeWidth: 10,
+                  },
+                  suggestedMin: 0,
+               }
+            },
+            responsive: true,
+            elements: {
+               line: {
+                  borderWidth: 10
+               }
             }
-        });
-
-
+      }
+      });
     }
+    
+
+           
+    
+    
+    
 
     //-----------------------------------------------------Playlist View----------------------------------------------------
     document.getElementById("playlist-button").addEventListener("click", () => {
@@ -313,19 +364,22 @@ document.addEventListener("DOMContentLoaded", function () {
         const singleSongView = document.getElementById("singleSongViewContainer");
         const closeButton = document.getElementById("close-view-button");
         const playlistS= document.getElementById("playlist-summary");
-        const searchText = document.getElementById("search");
+        const serch = document.getElementById("search")
+        
 
         // Hide song table and single song view
         songTableView.style.display = "none";
         singleSongView.style.display = "none";
         playlistS.style.display="none";
+        serch.style.display = "none";
        
 
         // Show the selected view
         if (view === "song-table") {
             songTableView.style.display = "block";
             closeButton.style.display = "none";
-            searchText.style.display = "block";
+            serch.style.display = "flex";
+            
            
 
         } else if (view === "playlist-table") {
@@ -340,10 +394,6 @@ document.addEventListener("DOMContentLoaded", function () {
             
         }
     }
-
-
-
-
 
     
     
@@ -375,7 +425,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
-        // Add click event for removing songs
+        
         document.querySelectorAll(".remove-from-playlist").forEach(button => {
             button.addEventListener("click", () => {
                 removeSongFromPlaylist(button.dataset.songId);
@@ -396,22 +446,22 @@ document.addEventListener("DOMContentLoaded", function () {
         const summaryElement = document.getElementById("playlist-summary");
         summaryElement.textContent = `Songs: ${numSongs}, Average Popularity: ${avgPopularity.toFixed(2)}`;
     }
-    // Function to remove a song from the playlist
+    
     function removeSongFromPlaylist(songId) {
         playlist = playlist.filter(song => song.song_id != songId);
-        populatePlaylistTable(); // Update the playlist view
+        populatePlaylistTable(); 
         updatePlaylistSummary();
     }
     function clearPlaylist() {
         playlist = [];
-        populatePlaylistTable(); // Update the playlist view
-        updatePlaylistSummary(); // Update the summary info
+        populatePlaylistTable(); 
+        updatePlaylistSummary(); 
     }
     document.getElementById("clear-playlist-button").addEventListener("click", clearPlaylist);
     
     
 
-    // adding a song to the playlist
+
    
     function addSongToPlaylist(songId) {
         const songToAdd = originalData.find(song => song.song_id == songId);
@@ -419,10 +469,10 @@ document.addEventListener("DOMContentLoaded", function () {
             playlist.push(songToAdd);
             populatePlaylistTable(); 
             updatePlaylistSummary();
-            showNotification();
+            showNotification("Song added to playlist");
         } else {
-            showNotification("Song already added");
-            console.log("Song already in playlist or not found"); // Debugging line
+            showNotification("Song already added to playlist");
+            
         }
        
     }
@@ -431,18 +481,30 @@ document.addEventListener("DOMContentLoaded", function () {
         const playlistView = document.getElementById("playlist-table");
         const singleSongView = document.getElementById("singleSongViewContainer");
         const playlistS= document.getElementById("playlist-summary");
-        const searchText = document.getElementById("search");
-    
-        // Show the song table view
+        const serch = document.getElementById("search")
+        
+        
         songTableView.style.display = "block";
-        searchText.display.style="block";
+        serch.style.display = "flex";
+       
     
-        // Hide the playlist and single song view
+        
         playlistView.style.display = "none";
         singleSongView.style.display = "none";
         playlistS.style.display = "none";
         
     }
     document.getElementById("close-playlist-view-button").addEventListener("click", closeView);
+
+    function CreditsPopup() {
+        const creditsPopup = document.getElementById("credits-popup");
+        creditsPopup.style.display = "block";
+        setTimeout(function () {
+          creditsPopup.style.display = "none";
+        }, 5000); // Disappear after 5 seconds
+      }
+
+      // Event listener for mouseover on the Credits button
+      document.getElementById("credits-btn").addEventListener("mouseover", CreditsPopup);
     
 });
